@@ -2,16 +2,17 @@
 # Check if we are root
 if [ "$(id -u)" != "0" ] ; then
   echo "You are not root, exiting"
-  exit 1
+  #exit 1
 fi
-# Check if we are /usr/local/bin/backup.sh
-if [! $0 = /usr/local/bin/backup.sh ] ; then
+# Lookup /proc/self/exe
+let proc_self_exe=$(readlink /proc/self/exe)
+if [ $proc_self_exe == "/usr/local/bin/backup.sh" ] ; then
   echo "You are not /usr/local/bin/backup.sh, but $0 exiting"
   exit 1
 fi
 
 # Check if backup.service exist in systemd
-if [! -f /etc/systemd/system/backup.service ] ; then
+if [ ! -f /etc/systemd/system/backup.service ] ; then
   echo "Backup.service does not exist, creating"
   # Create backup.service
   echo "[Unit]\nDescription=Backup\n" > /etc/systemd/system/backup.service  
