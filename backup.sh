@@ -4,6 +4,13 @@ if [ "$(id -u)" != "0" ] ; then
   echo "You are not root, exiting"
   exit 1
 fi
+
+# Is it ubuntu or debian? For now i didnt tested anywhere else
+if [ "$(lsb_release -c)"!= "Ubuntu" || "$(lsb_release -c)"!= "Debian" ] ; then
+  echo "This script is only for ubuntu/debian"
+  exit 1
+fi
+
 # Lookup /proc/self/exe assign to variable proc_self_exe
 proc_self_exe=$(readlink /proc/self/exe)
 
