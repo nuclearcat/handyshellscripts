@@ -5,8 +5,8 @@ if [ "$(id -u)" != "0" ] ; then
   #exit 1
 fi
 # Lookup /proc/self/exe
-let proc_self_exe=$(readlink /proc/self/exe)
-if [ $proc_self_exe == "/usr/local/bin/backup.sh" ] ; then
+let proc_self_exe="$(readlink /proc/self/exe)"
+if [ "$proc_self_exe" == "/usr/local/bin/backup.sh" ] ; then
   echo "You are not /usr/local/bin/backup.sh, but $0 exiting"
   exit 1
 fi
